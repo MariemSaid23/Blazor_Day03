@@ -1,0 +1,27 @@
+﻿@page "/Depts/Details/{id:int}"
+
+<h3>DEtailsCompoent</h3>
+@if (DepObj != null)
+{
+    <h3>@DepObj.Deptname</h3>
+    <h2>@DepObj.Departmentlocation</h2>
+    <h2>@DepObj.Studentnumbers</h2>
+    <h2>@DepObj.Studentname</h2>
+}else{
+    <h2>Id Invalid or Wait ..</h2>
+}
+@code {
+    [Parameter]
+    public int id { get; set; }
+
+    [Inject]
+    public IServices<Department> DeptService { get; set; }
+
+    public Department DepObj { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        DepObj = await DeptService.GetByID(id);
+        base.OnInitializedAsync();
+    }
+}
